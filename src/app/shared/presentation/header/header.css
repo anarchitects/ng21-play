@@ -1,0 +1,38 @@
+:host {
+	display: block;
+	position: sticky;
+	top: 0;
+	z-index: 20;
+	background: linear-gradient(to right, #0f172a, #1e293b);
+	border-bottom: 1px solid rgba(161, 174, 202, 0.08);
+	backdrop-filter: saturate(180%) blur(12px);
+}
+
+header {
+	display: flex;
+  align-items: center;
+  justify-content: space-between;
+	gap: 0.75rem;
+  padding: 0.5rem 2rem;
+  h1 {
+    font-size: 5rem;
+    font-weight: 800;
+  }
+  nav {
+    ul {
+      display: flex;
+      gap: 2rem;
+      li {
+        font-weight: 600;
+        font-size: 1.8rem;
+        ng-icon {
+          margin-right: 0.3rem;
+        }
+        &:hover {
+          text-decoration: underline;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}

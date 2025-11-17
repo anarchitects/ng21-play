@@ -1,0 +1,25 @@
+<h2>Products</h2>
+@if (loading()) { Loading... } @else if (error()) { Error loading
+products: {{ error() | json }}
+} @else {
+<section>
+  @for (product of products(); track $index) {
+  <article>
+      <img [src]="product.images[0]" [alt]="product.title" />
+      <h3>{{ product.title }}</h3>
+      <h5>{{ product.description }}</h5>
+      <p>${{ product.price }}</p>
+      <span>
+        <button [routerLink]="product.slug">View Details</button>
+        <button>Add to Cart</button>
+      </span>
+  </article>
+  }
+</section>
+<nav>
+  <button (click)="store.previousPage()" [disabled]="store.offset() === 0">Previous</button>
+  <button (click)="store.nextPage()" [disabled]="store.offset() + store.limit() >= 1000">
+    Next
+  </button>
+</nav>
+}

@@ -1,0 +1,15 @@
+<h2>Production Information: {{ product()?.title }}</h2>
+<article>
+  @if (loading()) { Loading... } @else if (error()) { Error loading
+  product: {{ error() | json }}
+  } @else if (product()) {
+  <section>
+    <h3>{{ product()?.title }}</h3>
+    <img [src]="product()!.images[0]" [alt]="product()?.title" />
+    <h4>Category: {{ product()?.category?.name }}</h4>
+    <h5>{{ product()?.description }}</h5>
+    <p>${{ product()?.price }}</p>
+    <button>Add to Cart</button>
+  </section>
+  }
+</article>
