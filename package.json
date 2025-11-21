@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "lint": "ng lint"
+    "start": "nx serve",
+    "build": "nx build",
+    "watch": "nx build --watch --configuration development",
+    "test": "nx test",
+    "lint": "nx lint"
   },
   "prettier": {
     "printWidth": 100,
@@ -37,14 +37,20 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@angular-devkit/core": "^21.0.0-rc.1",
+    "@angular-devkit/schematics": "^21.0.0-rc.1",
     "@angular-eslint/builder": "20.6.0",
     "@angular/build": "^21.0.0-rc.1",
     "@angular/cli": "^21.0.0-rc.1",
     "@angular/compiler-cli": "^21.0.0-next.0",
     "@eslint/js": "^9.39.0",
+    "@nx/angular": "22.1.0",
+    "@nx/workspace": "22.1.0",
+    "@schematics/angular": "^21.0.0-rc.1",
     "angular-eslint": "20.6.0",
     "eslint": "^9.39.0",
     "jsdom": "^27.0.0",
+    "nx": "22.1.0",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.46.3",
     "vitest": "^4.0.0"
