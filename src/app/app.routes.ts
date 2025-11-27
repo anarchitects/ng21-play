@@ -9,8 +9,10 @@ export const routes: Routes = [
   {
     path: 'products',
     loadChildren: () =>
-      import('@app/catalog/presentation/pages/routes').then(
-        (m) => m.CATALOG_ROUTES
-      ),
-  }
+      import('@app/catalog/presentation/pages/routes').then((m) => m.CATALOG_ROUTES),
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('auth/presentation').then((m) => m.AUTH_ROUTES),
+  },
 ];
