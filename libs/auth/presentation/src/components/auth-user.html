@@ -1,0 +1,11 @@
+@if (loading()) {
+<div>Loading...</div>
+} @else if (error()) {
+<div>Error: {{ error() }}</div>
+} @else if (authUser()) {
+<ng-icon name="bootstrapPerson" />
+<span>{{ authUser().name }}</span>
+<button (click)="logout()"><ng-icon name="bootstrapBoxArrowRight" />Logout</button>
+} @else {
+<button routerLink="/auth/login"><ng-icon name="bootstrapBoxArrowInLeft" />Login</button>
+}

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/c
 import { Params, RouterLink } from '@angular/router';
 import { bootstrapCart, bootstrapHouseDoor, bootstrapPerson } from '@ng-icons/bootstrap-icons';
 import { NgIcon, provideIcons } from '@ng-icons/core';
+import { AuthUser } from 'auth/presentation';
 
 interface NavLink {
   label: string;
@@ -12,7 +13,7 @@ interface NavLink {
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, NgIcon],
+  imports: [RouterLink, NgIcon, AuthUser],
   templateUrl: './header.html',
   styleUrl: './header.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,0 +1,20 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve",
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["./src/app/*"],
+      "@catalog/*": ["./src/app/catalog/*"],
+      "auth": ["libs/auth/src/index.ts"],
+      "auth/domain": ["libs/auth/domain/src/index.ts"],
+      "auth/infrastructure": ["libs/auth/infrastructure/src/index.ts"],
+      "auth/application": ["libs/auth/application/src/index.ts"],
+      "auth/presentation": ["libs/auth/presentation/src/index.ts"]
+    }
+  }
+}
