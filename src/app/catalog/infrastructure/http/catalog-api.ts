@@ -29,7 +29,7 @@ export class CatalogApi {
     }));
   }
 
-  productSlugResource(slug: Signal<string>) {
+  productSlugResource(slug: Signal<string | undefined>) {
     return httpResource<Product>(() => ({
       url: `${this.baseUrl}/products/slug/${slug()}`,
       method: 'GET',

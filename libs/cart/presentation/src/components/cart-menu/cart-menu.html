@@ -1,0 +1,8 @@
+<span class="cart-menu">
+  <ng-icon name="bootstrapCart" />
+
+    <span class="cart-menu__label"> <a routerLink="/cart">Cart</a></span>
+    @if (cart().totalItems > 0) {
+    <span class="cart-menu__badge">{{ cart().totalItems }}</span>
+    }
+</span>

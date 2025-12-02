@@ -1,0 +1,31 @@
+:host {
+  display: inline-flex;
+}
+
+.cart-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  position: relative;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+
+  .cart-menu__label {
+    letter-spacing: 0.02em;
+  }
+
+  .cart-menu__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.5rem;
+    height: 1.5rem;
+    padding: 0 0.4rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-secondary));
+    color: #f8fafc;
+    font-size: 0.8rem;
+    font-weight: 700;
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.28);
+  }
+}

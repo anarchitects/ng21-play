@@ -2,8 +2,10 @@
   <h1>Ye Olde Shoppe</h1>
   <nav>
     <ul>
-      <li><a routerLink="/"><ng-icon name="bootstrapHouseDoor" />Home</a></li>
-      <li><ng-icon name="bootstrapCart" />Cart</li>
+      <li>
+         <a routerLink="/" (click)="handleHomeClick()"><ng-icon name="bootstrapHouseDoor" />Home</a>
+      <li>
+      <li><lib-cart-menu /></li>
       <li><lib-auth-user /></li>
     </ul>
   </nav>
