@@ -1,15 +1,39 @@
-<h2>Production Information: {{ product()?.title }}</h2>
+<h2>Product Spotlight</h2>
 <article>
-  @if (loading()) { Loading... } @else if (error()) { Error loading
-  product: {{ error() | json }}
-  } @else if (product()) {
+  @if (loading()) {
   <section>
-    <h3>{{ product()?.title }}</h3>
-    <img [src]="product()!.images[0]" [alt]="product()?.title" />
-    <h4>Category: {{ product()?.category?.name }}</h4>
-    <h5>{{ product()?.description }}</h5>
-    <p>${{ product()?.price }}</p>
-    <button>Add to Cart</button>
+    <h3>Loading product details…</h3>
+  </section>
+  } @else if (error()) {
+  <section>
+    <h3>Something went wrong.</h3>
+    <h5>{{ error() | json }}</h5>
+  </section>
+  } @else if (product(); as product) {
+  <section>
+    <img [src]="product.images[selectedImage]" [alt]="product.title" />
+    <ul>
+      @for (image of product.images; track image) {
+      <li>
+        <button
+          class="btn btn--sm"
+          [class.btn--primary]="selectedImage === $index"
+          [class.btn--ghost]="selectedImage !== $index"
+          (click)="selectImage($index)"
+        >
+          <img [src]="image" [alt]="product.title" />
+        </button>
+      </li>
+      }
+    </ul>
+    <h3>{{ product.title }}</h3>
+    <h4>Category: {{ product.category.name }}</h4>
+    <h5>{{ product.description }}</h5>
+    <p>${{ product.price }}</p>
+    <div>
+      <input type="number" name="quantity" id="quantity" [(ngModel)]="quantity" min="1" />
+      <lib-cart-button [product]="product" [quantity]="quantity"></lib-cart-button>
+    </div>
   </section>
   }
 </article>

@@ -15,4 +15,8 @@ export const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('auth/presentation').then((m) => m.AUTH_ROUTES),
   },
+  {
+    path: 'cart',
+    loadChildren: () => import('cart/presentation').then((m) => m.CART_ROUTES),
+  }
 ];

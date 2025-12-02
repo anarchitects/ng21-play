@@ -1,8 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Params, RouterLink } from '@angular/router';
 import { bootstrapCart, bootstrapHouseDoor, bootstrapPerson } from '@ng-icons/bootstrap-icons';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { AuthUser } from 'auth/presentation';
+import { CartMenu } from 'cart/presentation';
+import { CatalogStore } from '@app/catalog/application/state/catalog.store';
 
 interface NavLink {
   label: string;
@@ -13,20 +15,26 @@ interface NavLink {
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, NgIcon, AuthUser],
+  imports: [RouterLink, NgIcon, AuthUser, CartMenu],
   templateUrl: './header.html',
   styleUrl: './header.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   viewProviders: [provideIcons({ bootstrapCart, bootstrapPerson, bootstrapHouseDoor })],
 })
 export class Header {
+  private readonly catalogStore = inject(CatalogStore);
   readonly menuId = 'primary-navigation';
   readonly menuOpen = signal(false);
   readonly navLinks: readonly NavLink[] = [
     { label: 'Home', path: '/' },
     { label: 'New Arrivals', path: '/products', queryParams: { offset: 0, limit: 12 } },
     { label: 'Collections', path: '/products', queryParams: { categoryId: 3, limit: 12 } },
-    { label: 'Sale', path: '/products', queryParams: { price_min: 0, price_max: 60 }, isHighlighted: true },
+    {
+      label: 'Sale',
+      path: '/products',
+      queryParams: { price_min: 0, price_max: 60 },
+      isHighlighted: true,
+    },
   ];
   readonly menuToggleLabel = computed(() =>
     this.menuOpen() ? 'Close navigation menu' : 'Open navigation menu'
@@ -40,4 +48,7 @@ export class Header {
     this.menuOpen.set(false);
   }
 
+  handleHomeClick(): void {
+    this.catalogStore.resetPagination();
+  }
 }

@@ -1,5 +1,7 @@
 :host {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 ng-icon {
@@ -7,18 +9,5 @@ ng-icon {
 }
 
 button {
-  font-size: 1.6rem;
-  font-weight: 600;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  border: none;
-  background-color: #3b82f6;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin: 0 0.5rem;
-
-  &:hover {
-    background-color: #2563eb;
-  }
+  margin: 0;
 }
