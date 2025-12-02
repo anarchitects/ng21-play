@@ -1,4 +1,4 @@
-import { computed, inject } from '@angular/core';
+import { computed, inject, signal } from '@angular/core';
 import {
   patchState,
   signalStore,
@@ -15,6 +15,8 @@ import { AuthenticatedUser } from 'auth/domain';
 import { pipe, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
+type ProfileResource = ReturnType<AuthApi['profileResource']>;
+
 interface AuthState {
   loading: boolean;
   error: string | null;
@@ -28,20 +30,47 @@ const initialState: AuthState = {
 export const AuthStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
-  withProps(() => ({
-    _authApi: inject(AuthApi),
-  })),
-  withProps(({ _authApi }) => ({
-    _profileResource: _authApi.profileResource(),
-  })),
+  withProps(() => {
+    const _authApi = inject(AuthApi);
+    const _profileResource = signal<ProfileResource | null>(
+      localStorage.getItem('access_token') ? _authApi.profileResource() : null
+    );
+
+    const _ensureProfileResource = () => {
+      if (!_profileResource()) {
+        _profileResource.set(_authApi.profileResource());
+      }
+      return _profileResource()!;
+    };
+
+    const _resetProfileResource = () => {
+      const resource = _profileResource();
+      resource?.set(undefined);
+      _profileResource.set(null);
+    };
+
+    return {
+      _authApi,
+      _profileResource,
+      _ensureProfileResource,
+      _resetProfileResource,
+    };
+  }),
   withEntities<AuthenticatedUser>(),
-  withComputed(({_profileResource, entities}) => ({
-    isLoggedIn: computed(() => !!entities().length || _profileResource.hasValue()),
-    authenticatedUser: computed(
-      () =>
-        entities()[0] ??
-        (_profileResource.hasValue() ? _profileResource.value() : null)
-    ),
+  withComputed(({ _profileResource, entities }) => ({
+    isLoggedIn: computed(() => {
+      const resource = _profileResource();
+      return !!entities().length || !!resource?.hasValue();
+    }),
+    authenticatedUser: computed(() => {
+      const allEntities = entities();
+      if (allEntities.length) {
+        return allEntities[0];
+      }
+
+      const resource = _profileResource();
+      return resource?.hasValue() ? resource.value() : null;
+    }),
   })),
   withMethods((store, router = inject(Router)) => ({
     login: rxMethod<{ email: string; password: string }>(
@@ -53,7 +82,7 @@ export const AuthStore = signalStore(
               next: ({ access_token, refresh_token }) => {
                 localStorage.setItem('access_token', access_token);
                 localStorage.setItem('refresh_token', refresh_token);
-                store._profileResource.reload();
+                store._ensureProfileResource().reload();
                 router.navigate(['/']);
               },
               error: (error: any) => {
@@ -70,7 +99,7 @@ export const AuthStore = signalStore(
         tap(() => {
           localStorage.removeItem('access_token');
           localStorage.removeItem('refresh_token');
-          store._profileResource.set(undefined)
+          store._resetProfileResource();
           patchState(store, removeAllEntities());
         })
       )

@@ -1,0 +1,29 @@
+@if (loading()) {
+<p>Loading cart...</p>
+} @else if (error()) {
+<p>Error loading cart: {{ error() }}</p>
+} @else {
+<h2>Your Cart</h2>
+<ul>
+  @for (item of cart().items; track item.productId) {
+  <li>
+    <p>{{ item.title }} - Quantity: {{ item.quantity }} - Price: {{ item.price | currency }}</p>
+  </li>
+  <table>
+    <tr>
+      <td>Title:</td>
+      <td>{{ item.title }}</td>
+    </tr>
+    <tr>
+      <td>Quantity:</td>
+      <td>{{ item.quantity }}</td>
+    </tr>
+    <tr>
+      <td>Price:</td>
+      <td>{{ item.price | currency }}</td>
+    </tr>
+  </table>
+  }
+</ul>
+<p class="cart__total">Total: {{ cart().totalPrice | currency }}</p>
+}

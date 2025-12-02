@@ -14,7 +14,12 @@
       "auth/domain": ["libs/auth/domain/src/index.ts"],
       "auth/infrastructure": ["libs/auth/infrastructure/src/index.ts"],
       "auth/application": ["libs/auth/application/src/index.ts"],
-      "auth/presentation": ["libs/auth/presentation/src/index.ts"]
+      "auth/presentation": ["libs/auth/presentation/src/index.ts"],
+      "cart": ["libs/cart/src/index.ts"],
+      "cart/infrastructure": ["libs/cart/infrastructure/src/index.ts"],
+      "cart/domain": ["libs/cart/domain/src/index.ts"],
+      "cart/application": ["libs/cart/application/src/index.ts"],
+      "cart/presentation": ["libs/cart/presentation/src/index.ts"]
     }
   }
 }

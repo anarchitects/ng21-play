@@ -1,29 +1,82 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-	color-scheme: light dark;
-	font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-	line-height: 1.5;
-	font-weight: 400;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  color-scheme: light dark;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f1f5f9;
+  --color-surface-hover: #e2e8f0;
+  --color-text: #0f172a;
+  --color-text-muted: #475569;
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-secondary: #4338ca;
+  --shadow-primary: 0 12px 26px rgba(37, 99, 235, 0.22);
+  --shadow-primary-hover: 0 18px 32px rgba(37, 99, 235, 0.28);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-surface: #0f172a;
+    --color-surface-muted: #020617;
+    --color-surface-hover: #1e293b;
+    --color-text: #e2e8f0;
+    --color-text-muted: #94a3b8;
+    --color-primary: #60a5fa;
+    --color-primary-dark: #3b82f6;
+    --color-primary-secondary: #7c3aed;
+    --shadow-primary: 0 12px 26px rgba(96, 165, 250, 0.25);
+    --shadow-primary-hover: 0 18px 32px rgba(96, 165, 250, 0.32);
+  }
+
+  body {
+    background-color: var(--color-surface-muted);
+    color: var(--color-text);
+  }
+
+  hr {
+    border-top-color: rgba(148, 163, 184, 0.2);
+  }
+
+  .btn--secondary {
+    --btn-bg: #111827;
+    --btn-bg-hover: #1f2937;
+    --btn-color: var(--color-text);
+    --btn-border: rgba(148, 163, 184, 0.28);
+    --btn-border-hover: rgba(96, 165, 250, 0.4);
+  }
+
+  .btn--ghost {
+    --btn-bg: transparent;
+    --btn-bg-hover: rgba(96, 165, 250, 0.15);
+    --btn-color: var(--color-primary);
+    --btn-border: rgba(148, 163, 184, 0.28);
+    --btn-border-hover: rgba(96, 165, 250, 0.4);
+  }
 }
 
 *,
 *::before,
 *::after {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 * {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-	min-height: 100vh;
-	background-color: #0f172a;
-	color: #e2e8f0;
+  min-height: 100vh;
+  background-color: var(--color-surface-muted);
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
 }
 
 img,
@@ -31,49 +84,119 @@ picture,
 video,
 canvas,
 svg {
-	display: block;
-	max-width: 100%;
+  display: block;
+  max-width: 100%;
 }
 
 input,
 button,
 textarea,
 select {
-	font: inherit;
-	color: inherit;
-	background: none;
-	border: none;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
 }
 
 button,
 [type='button'],
 [type='submit'],
 [role='button'] {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 a {
-	color: inherit;
-	text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 ul,
 ol {
-	list-style: none;
+  list-style: none;
 }
 
 table {
-	border-collapse: collapse;
-	width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
 
 hr {
-	border: none;
-	border-top: 1px solid rgba(148, 163, 184, 0.3);
-	margin-block: 1.5rem;
+  border: none;
+  border-top: 1px solid rgba(148, 163, 184, 0.3);
+  margin-block: 1.5rem;
 }
 
 :focus-visible {
-	outline: 2px solid #38bdf8;
-	outline-offset: 4px;
+  outline: 2px solid #38bdf8;
+  outline-offset: 4px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--btn-border, transparent);
+  background: var(--btn-bg, var(--color-primary));
+  color: var(--btn-color, #f8fafc);
+  box-shadow: var(--btn-shadow, none);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease,
+    border-color 0.2s ease, color 0.2s ease;
+}
+
+.btn:focus-visible:not(:disabled),
+.btn:hover:not(:disabled) {
+  background: var(--btn-bg-hover, var(--btn-bg, var(--color-primary-dark)));
+  border-color: var(--btn-border-hover, var(--btn-border, transparent));
+  box-shadow: var(--btn-shadow-hover, var(--btn-shadow, none));
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.btn--primary {
+  --btn-bg: linear-gradient(135deg, var(--color-primary), var(--color-primary-secondary));
+  --btn-bg-hover: linear-gradient(
+    135deg,
+    var(--color-primary-dark),
+    var(--color-primary-secondary)
+  );
+  --btn-color: #f8fafc;
+  --btn-border: transparent;
+  --btn-border-hover: transparent;
+  --btn-shadow: var(--shadow-primary);
+  --btn-shadow-hover: var(--shadow-primary-hover);
+}
+
+.btn--secondary {
+  --btn-bg: var(--color-surface-muted);
+  --btn-bg-hover: var(--color-surface-hover);
+  --btn-color: var(--color-text);
+  --btn-border: rgba(15, 23, 42, 0.14);
+  --btn-border-hover: rgba(37, 99, 235, 0.35);
+}
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-bg-hover: rgba(37, 99, 235, 0.08);
+  --btn-color: var(--color-primary-dark);
+  --btn-border: rgba(15, 23, 42, 0.14);
+  --btn-border-hover: rgba(37, 99, 235, 0.35);
+}
+
+.btn--sm {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.9rem;
+  border-radius: 0.65rem;
 }
